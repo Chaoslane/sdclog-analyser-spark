@@ -1,5 +1,6 @@
-package com.udbac.constant;
+package com.udbac.logana.utils;
 
+import com.udbac.logana.constant.LogConstants;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -10,21 +11,21 @@ import java.util.*;
  * Created by root on 2017/1/12.
  * IP解析为地域名称
  */
-public class HandleIPUtil {
-    private static String fileSeges = "udbacIPtransSegs.csv";
-    private static String fileAreas = "udbacIPtransArea.csv";
+public class IPv4Handler {
+    private static final String fileSeges = "udbacIPtransSegs.csv";
+    private static final String fileAreas = "udbacIPtransArea.csv";
     /**
      * 解析为 province,city
      * @param logIP IP字符串
      * @return  province,city
      * @throws IOException
      */
-    public static String getArea(String logIP) throws IOException {
+    public static String[] getArea(String logIP) throws IOException {
         List<String> readAreas = FileUtils.readLines(new File(fileAreas));
-        Map<String, String> mapArea = new HashMap<>();
+        Map<String, String[]> mapArea = new HashMap<>();
         for (String oneline : readAreas) {
-            String[] strings = oneline.split(SDCLogConstants.IPCSV_SEPARTIOR);
-            mapArea.put(strings[2], strings[0] + "," + strings[1]);
+            String[] strings = oneline.split(LogConstants.IPCSV_SEPARTIOR);
+            mapArea.put(strings[2], strings);
         }
         return mapArea.get(getIPcode(logIP));
     }
@@ -40,7 +41,7 @@ public class HandleIPUtil {
         Map<Integer, String> ipMap = new HashMap<>();
         List<Integer> rangeList = new ArrayList<>();
         for (String oneline : readSeges) {
-            String[] strings = oneline.split(SDCLogConstants.IPCSV_SEPARTIOR);
+            String[] strings = oneline.split(LogConstants.IPCSV_SEPARTIOR);
             Integer startIP = IPv4Util.ipToInt(strings[0]);
             String code = strings[2];
             rangeList.add(startIP);

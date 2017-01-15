@@ -1,19 +1,13 @@
-package com.udbac.constant;
+package com.udbac.logana.utils;
 
 /**
  * Created by root on 2017/1/12.
  */
 import java.net.InetAddress;
 
-/**
- * @author michael <br>
- *         blog: http://sjsky.iteye.com <br>
- *         mail: sjsky007@gmail.com
- */
 public class IPv4Util {
 
     private final static int INADDRSZ = 4;
-
     /**
      * 把IP地址转化为字节数组
      * @param ipAddr
